@@ -1,14 +1,10 @@
-const { Pool } = require('pg');
-
-const pool = new Pool();
+const db = require('../db');
 
 // créé une tâche
 const createTask = async (req, res) => {
   try {
     const { name } = req.body;
-    const newTask = await pool.query('INSERT INTO task(name) VALUES($1)', [
-      name
-    ]);
+    const newTask = await db.query('INSERT INTO task(name) VALUES($1)', [name]);
     res.status(201).json(newTask[0]);
   } catch (error) {
     res.status(500).json({ msg: error });
@@ -18,8 +14,8 @@ const createTask = async (req, res) => {
 // récupére toutes les tâches
 const getAllTasks = async (req, res) => {
   try {
-    const tasks = await pool.query('SELECT * FROM task');
-    res.status(200).json(tasks.rows);
+    const { rows } = await db.query('SELECT * FROM task');
+    res.status(200).json(rows);
   } catch (error) {
     res.status(500).json({ msg: error });
   }
@@ -29,15 +25,15 @@ const getAllTasks = async (req, res) => {
 const getTask = async (req, res) => {
   try {
     const { id } = req.params;
-    const task = await pool.query('SELECT * FROM task WHERE task_id = $1', [
+    const { rows } = await db.query('SELECT * FROM task WHERE task_id = $1', [
       id
     ]);
 
-    if (!task.rows[0]) {
+    if (!rows[0]) {
       return res.status(404).json({ msg: `Pas de tâche avec l'id : ${id}` });
     }
 
-    res.status(200).json({ task: task.rows[0] });
+    res.status(200).json({ task: rows[0] });
   } catch (error) {
     res.status(500).json({ msg: error });
   }
@@ -48,12 +44,12 @@ const updateTask = async (req, res) => {
   try {
     const { id } = req.params;
     const { name, completed } = req.body;
-    const task = await pool.query(
+    const task = await db.query(
       'UPDATE task SET name = $1, completed = $2 WHERE task_id = $3',
       [name, completed, id]
     );
 
-    if (!task.rowCount) {
+    if (task.rowCount === 0) {
       return res.status(404).json({ msg: `Pas de tâche avec l'id : ${id}` });
     }
 
@@ -67,13 +63,13 @@ const updateTask = async (req, res) => {
 const deleteTask = async (req, res) => {
   try {
     const { id } = req.params;
-    const task = await pool.query('DELETE FROM task WHERE task_id = $1', [id]);
+    const task = await db.query('DELETE FROM task WHERE task_id = $1', [id]);
 
-    if (!task.rowCount) {
+    if (task.rowCount === 0) {
       return res.status(404).json({ msg: `Pas de tâche avec l'id : ${id}` });
     }
 
-    res.status(200).json({ task: id });
+    res.status(200).json({ msg: 'Tâche modifiée' });
   } catch (error) {
     res.status(500).json({ msg: error });
   }

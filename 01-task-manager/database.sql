@@ -2,6 +2,6 @@ CREATE DATABASE task_manager;
 
 CREATE TABLE task(
   task_id SERIAL PRIMARY KEY,
-  completed BOOLEAN DEFAULT false,
+  completed BOOLEAN NOT NULL DEFAULT false,
   name VARCHAR(255) NOT NULL
 );
