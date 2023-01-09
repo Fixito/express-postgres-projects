@@ -60,7 +60,7 @@ tasksDOM.addEventListener('click', async (e) => {
       await axios.delete(`/api/v1/tasks/${id}`);
       showTasks();
     } catch (error) {
-      console.log(error);
+      console.log(error.message);
     }
   }
 
