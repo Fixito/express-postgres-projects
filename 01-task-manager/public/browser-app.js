@@ -4,7 +4,7 @@ const formDOM = document.querySelector('.task-form');
 const taskInputDOM = document.querySelector('.task-input');
 const formAlertDOM = document.querySelector('.form-alert');
 
-// Load tasks from /api/tasks
+// Charge les tâches depuis /api/tasks
 const showTasks = async () => {
   loadingDOM.style.visibility = 'visible';
 
@@ -48,7 +48,7 @@ const showTasks = async () => {
 
 showTasks();
 
-// delete task /api/tasks/:id
+// Supprime une tâche /api/tasks/:id
 tasksDOM.addEventListener('click', async (e) => {
   const el = e.target;
 
@@ -67,7 +67,7 @@ tasksDOM.addEventListener('click', async (e) => {
   loadingDOM.style.visibility = 'hidden';
 });
 
-// form
+// Formulaire
 formDOM.addEventListener('submit', async (e) => {
   e.preventDefault();
   const name = taskInputDOM.value;
