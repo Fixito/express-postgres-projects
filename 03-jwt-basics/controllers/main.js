@@ -1,4 +1,4 @@
-const CustomError = require('../errors/customError');
+const { BadRequestError } = require('../errors');
 
 // vérifier username et password dans la requête POST(login)
 // si ils existent, on créé un nouveau JWT
@@ -12,12 +12,12 @@ const login = (req, res) => {
   const { username, password } = req.body;
   console.log(username, password);
 
-  //* 3 options pour vérifier que les infos existent
+  //* 2 options pour vérifier que les infos existent
   //* express-validator
   //* vérifier manuellement dans le controller
 
   if (!username || !password) {
-    throw new CustomError('Veuillez fournir un email et un mot de passe', 400);
+    throw new BadRequestError('Veuillez fournir un email et un mot de passe');
   }
 
   const id = new Date().getTime();
@@ -31,7 +31,7 @@ const login = (req, res) => {
 
   // res.send('Fake Login/Register/Signup Route');
 
-  // TODO: récupérer le token via Postman essayer le décrypter sur le site de JWT
+  // récupérer le token via Postman essayer le décrypter sur le site de JWT
   res.status(200).json({ msg: 'utilisateur créé', token });
 };
 

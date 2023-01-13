@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const { UnauthenticatedError } = require('../errors');
 
 const authenticationMiddleware = async (req, res, next) => {
   // console.log(req.headers.authorization);
@@ -6,7 +7,7 @@ const authenticationMiddleware = async (req, res, next) => {
   const authHeader = req.headers.authorization;
 
   if (!authHeader || !authHeader.startsWith('Bearer ')) {
-    // TODO: error
+    throw new UnauthenticatedError('Pas de token fournit');
   }
 
   const token = authHeader.split(' ')[1];
@@ -17,7 +18,7 @@ const authenticationMiddleware = async (req, res, next) => {
     req.user = { id, username };
     next();
   } catch (error) {
-    // TODO: error
+    throw new UnauthenticatedError('Accès à cette route non autorisé');
   }
 };
 
