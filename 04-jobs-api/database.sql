@@ -14,7 +14,7 @@ CREATE TABLE jobs(
   job_id SERIAL PRIMARY KEY,
   company VARCHAR(50) NOT NULL,
   position VARCHAR(100) NOT NULL,
-  status VARCHAR(255) NOT NULL CHECK (company in ('entretien', 'refusé', 'en attente')) DEFAULT 'en attente',
+  status VARCHAR(255) NOT NULL CHECK (status in ('entretien', 'refusé', 'en attente')) DEFAULT 'en attente',
   user_id INTEGER REFERENCES users(user_id) ON DELETE CASCADE NOT NULL,
   created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
   updated_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW()
