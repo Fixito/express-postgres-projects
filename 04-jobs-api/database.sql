@@ -20,4 +20,14 @@ CREATE TABLE jobs(
   updated_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW()
 );
 
-CREATE RULE update_jobs AS ON UPDATE TO jobs DO UPDATE SET updated_at = NOW();
+CREATE FUNCTION update_updated_at() RETURNS TRIGGER AS $$
+BEGIN
+  NEW.updated_at = NOW();
+  RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER update_jobs
+BEFORE UPDATE ON jobs
+FOR EACH ROW
+EXECUTE FUNCTION update_updated_at();

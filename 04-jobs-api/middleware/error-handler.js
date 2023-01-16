@@ -14,6 +14,7 @@ const errorHandlerMiddleware = (err, req, res, next) => {
   //   return res.status(err.statusCode).json({ msg: err.message });
   // }
 
+  // Si l'email est dupliqué
   if (err.code && err.code === '23505') {
     customError.msg = `${err.detail} Veuillez choisir une autre valeur`;
     customError.statusCode = 400;

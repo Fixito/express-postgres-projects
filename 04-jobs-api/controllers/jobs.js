@@ -47,22 +47,22 @@ const createJob = async (req, res) => {
 
 const updateJob = async (req, res) => {
   const {
-    body: { company, position },
+    body: { company, position, status },
     user: { userID },
     params: { id: jobID },
   } = req;
 
   if (!company || !position) {
     throw new BadRequestError(
-      'Les champs société ou poste ne peuvent pas être vides'
+      'Les champs société, poste ne peuvent pas être vides'
     );
   }
 
   const {
     rows: [job],
   } = await db.query(
-    'UPDATE jobs SET company = $1, position = $2 WHERE job_id = $3 AND user_id = $4 RETURNING *',
-    [company, position, Number(jobID), userID]
+    'UPDATE jobs SET company = $1, position = $2, status = $3 WHERE job_id = $4 AND user_id = $5 RETURNING *',
+    [company, position, status, Number(jobID), userID]
   );
 
   if (!job) {

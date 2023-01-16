@@ -60,7 +60,25 @@ Regex de validation d'e-mail
 - xss-clean
 - express-rate-limit
 
-Swagger UI
+#### Exporter La Docs De Postman
+
+- Vérifier que la variable globale de l'url est la même pour toutes les routes
+- Exporter la collection
+
+#### Apimatic
+
+- Créer un compte
+- Importer le json
+- Editer l'API
+- Server Configuation > Environnement > URL (celui du projet Render + /api/v1)
+- Dans `Endpoints`, skip authentication et changer le Groupe pour Auth pour les routes login et register
+- Exporter l'API (OpenAPI v3.0)
+
+#### Créer et se connecter à une BDD avec Render
+
+- [Tuto](https://medium.com/geekculture/how-to-create-and-connect-to-a-postgresql-database-with-render-and-pgadmin-577b326fd19d)
+
+#### Swagger UI Editor
 
 ```yaml
 /jobs/{id}:
@@ -72,3 +90,8 @@ Swagger UI
       required: true
       description: the job id
 ```
+
+#### Librairies
+
+- swagger-ui-express
+- yamljs
