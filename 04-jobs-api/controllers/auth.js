@@ -7,7 +7,7 @@ const { StatusCodes } = require('http-status-codes');
 const register = async (req, res) => {
   const { name, email, password } = req.body;
 
-  if (!name || name.length < 3 || name.length > 50) {
+  if (!name || name.length <= 3 || name.length >= 50) {
     throw new BadRequestError(
       'Veuillez fournir un nom valide entre 3 et 50 caractères'
     );
