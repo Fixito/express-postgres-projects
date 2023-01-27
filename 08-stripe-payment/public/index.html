@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Paiement Stripe</title>
+    <!-- global css -->
+    <link rel="stylesheet" href="./global.css" />
+    <!-- local css -->
+    <link rel="stylesheet" href="./styles.css" />
+    <!-- STRIPE STUFF -->
+    <script src="https://js.stripe.com/v3/"></script>
+    <!-- js -->
+    <script src="./browser-app.js" defer></script>
+  </head>
+  <body>
+    <!-- navbar -->
+
+    <!-- content -->
+    <section class="section section-center content">
+      <h1>Paiement Stripe</h1>
+      <!-- Display a payment form -->
+      <form id="payment-form">
+        <div id="payment-element">
+          <!--Stripe.js injects the Payment Element-->
+        </div>
+        <button id="submit">
+          <div class="spinner hidden" id="spinner"></div>
+          <span id="button-text">Payer maintenant</span>
+        </button>
+        <div id="payment-message" class="hidden"></div>
+      </form>
+    </section>
+  </body>
+</html>
