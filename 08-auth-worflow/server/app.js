@@ -4,6 +4,7 @@ require('express-async-errors');
 const express = require('express');
 const app = express();
 // autres librairies
+const cookieParser = require('cookie-parser');
 const rateLimit = require('express-rate-limit');
 const helmet = require('helmet');
 const xss = require('xss-clean');
@@ -11,30 +12,31 @@ const cors = require('cors');
 
 //* routers
 const authRouter = require('./routes/authRoutes');
+const userRouter = require('./routes/userRoutes');
 
 //* middleware
-const authenticateUser = require('./middleware/authentication');
 const notFound = require('./middleware/not-found');
 const errorHandlerMiddleware = require('./middleware/error-handler');
 
 app.set('trust proxy', 1);
 app.use(
   rateLimit({
-    windowMs: 15 * 60 * 1000, // 15 minutes
-    max: 60, // Limit each IP to 100 requests per `window` (here, per 15 minutes)
-    standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
-    legacyHeaders: false // Disable the `X-RateLimit-*` headers
+    windowMs: 15 * 60 * 1000,
+    max: 60
   })
 );
+
 // extra librairies
 app.use(helmet());
-app.use(cors());
+app.use(cors({ origin: 'http://localhost:5173', credentials: true }));
 app.use(xss());
 
 app.use(express.json());
+app.use(cookieParser(process.env.JWT_SECRET));
 
 //* routes
 app.use('/api/v1/auth', authRouter);
+app.use('/api/v1/users', userRouter);
 
 app.use(notFound);
 app.use(errorHandlerMiddleware);

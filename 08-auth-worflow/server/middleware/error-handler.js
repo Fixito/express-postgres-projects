@@ -10,7 +10,7 @@ const errorHandlerMiddleware = (err, _req, res, _next) => {
 
   // Si l'email est dupliqué
   if (err.code && err.code === '23505') {
-    customError.msg = `${err.detail} Veuillez choisir une autre valeur`;
+    customError.msg = `Email déjà existant`;
     customError.statusCode = 400;
   }
 
