@@ -5,8 +5,6 @@ const fs = require('fs');
 const cloudinary = require('cloudinary').v2;
 
 const uploadProductImageLocal = async (req, res) => {
-  // res.send('upload une image');
-
   // req.body est vide donc on a besoin du package (express-fileupload) pour envoyer notre fichier
   // console.log(req.files);
 
@@ -46,7 +44,6 @@ const uploadProductImageLocal = async (req, res) => {
 const uploadProductImage = async (req, res) => {
   // On stockera provisoirement nos images en local avant de les uploader pour récupérer plus facilement le chemin
   // Il faut donc ajouter une option dans la methode fileuplaod (cf. app.js)
-
   if (!req.files) {
     throw new BadRequestError('Pas de fichier uploadé');
   }

@@ -2,7 +2,6 @@ const { StatusCodes } = require('http-status-codes');
 const db = require('../db');
 
 const createProduct = async (req, res) => {
-  // res.send('crée un produit');
   const { name, image, price } = req.body;
 
   const {
@@ -16,11 +15,7 @@ const createProduct = async (req, res) => {
 };
 
 const getAllProducts = async (_req, res) => {
-  // res.send('liste des produits');
-
-  // const products = await Product.find({});
   const { rows: products } = await db.query('SELECT * FROM products');
-
   res.status(StatusCodes.OK).json({ products });
 };
 
