@@ -6,7 +6,7 @@ const checkPermissions = (requestUser, ressourceUserId) => {
   // console.log(typeof ressourceUserId);
 
   if (requestUser.role === 'admin') return;
-  if (requestUser.userId === ressourceUserId.toString()) return;
+  if (requestUser.userId === ressourceUserId) return;
   throw new UnauthorizedError('Accès à cette route non autorisé.');
 };
 
