@@ -1,5 +1,7 @@
 const nodemailer = require('nodemailer');
 const sgMail = require('@sendgrid/mail');
+const { Resend } = require('resend');
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 // TODO: npm i nodemailer
 const sendEmailEtheral = async (_req, res) => {
