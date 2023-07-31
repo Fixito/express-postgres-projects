@@ -18,7 +18,7 @@ const showTasks = async () => {
       return;
     }
 
-    const allTasks = data
+    const allTasks = data.tasks
       .map((task) => {
         const { completed, task_id: taskID, name } = task;
         return `<div class="single-task ${completed && 'task-completed'}">

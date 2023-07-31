@@ -5,8 +5,8 @@ require('dotenv').config();
 const notFound = require('./middleware/notFound');
 const errorHandler = require('./middleware/errorHandler');
 
+// middlewares
 app.use(express.static('./public'));
-// middleware
 app.use(express.json());
 
 app.use('/api/v1/tasks', tasks);

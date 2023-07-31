@@ -1,21 +1,18 @@
 const db = require('../db');
 
-const getAllProductsStatic = async (req, res) => {
+const getAllProductsStatic = async (_req, res) => {
   // throw new Error('test de la librairie async errors');
   // return res.status(200).json({ msg: 'route test de products' });
 
   //* démo pour filter les réponses
-  //* name
   // const { rows } = await db.query('SELECT * FROM products');
+
+  //* name
   // const { rows } = await db.query(
   //   'SELECT * FROM products WHERE featured = true'
   // );
   // const { rows } = await db.query(
   //   "SELECT * FROM products WHERE name = 'albany sectional'"
-  // );
-
-  // const { rows } = await db.query(
-  //   "SELECT * FROM products WHERE name = 'albany '"
   // );
 
   // const { rows } = await db.query(
@@ -28,7 +25,7 @@ const getAllProductsStatic = async (req, res) => {
   //   [search]
   // );
 
-  //*sort
+  //* sort
   // const { rows } = await db.query(
   //   'SELECT * FROM products ORDER BY name, price',
   //   [search]
@@ -44,8 +41,6 @@ const getAllProductsStatic = async (req, res) => {
 };
 
 const getAllProducts = async (req, res) => {
-  // console.log(req.query);
-
   const { name, sort, fields } = req.query;
 
   let queryString = 'SELECT * FROM products';
@@ -70,7 +65,7 @@ const getAllProducts = async (req, res) => {
     queryString = `${queryString} ORDER BY ${sortList}`;
   }
 
-  //* pagination + limit
+  //* pagination + limite
   const page = Number(req.query.page) || 1;
   const limit = Number(req.query.limit) || 10;
   const offset = (page - 1) * limit;
@@ -78,13 +73,12 @@ const getAllProducts = async (req, res) => {
   queryString = `${queryString} LIMIT $${parameters.length + 1} OFFSET $${
     parameters.length + 2
   }`;
-  // 23 products, limit 7
+  // 23 products, limite 7
   // 4 pages, 7 7 7 2
   parameters.push(limit, offset);
 
   const { rows } = await db.query(queryString, parameters);
 
-  // return res.status(200).json({ msg: 'route products' });
   res.status(200).json({ products: rows, nbHits: rows.length });
 };
 
