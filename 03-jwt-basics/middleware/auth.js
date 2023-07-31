@@ -7,7 +7,7 @@ const authenticationMiddleware = async (req, res, next) => {
   const authHeader = req.headers.authorization;
 
   if (!authHeader || !authHeader.startsWith('Bearer ')) {
-    throw new UnauthenticatedError('Pas de token fournit');
+    throw new UnauthenticatedError('Pas de token fournit.');
   }
 
   const token = authHeader.split(' ')[1];
@@ -18,7 +18,7 @@ const authenticationMiddleware = async (req, res, next) => {
     req.user = { id, username };
     next();
   } catch (error) {
-    throw new UnauthenticatedError('Accès à cette route non autorisé');
+    throw new UnauthenticatedError('Accès à cette route non autorisé.');
   }
 };
 

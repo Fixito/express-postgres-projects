@@ -33,7 +33,7 @@ formDOM.addEventListener('submit', async (e) => {
     formAlertDOM.textContent = error.response.data.msg;
     localStorage.removeItem('token');
     resultDOM.innerHTML = '';
-    tokenDOM.textContent = 'pas de token présent';
+    tokenDOM.textContent = 'Pas de token présent';
     tokenDOM.classList.remove('text-success');
   }
 

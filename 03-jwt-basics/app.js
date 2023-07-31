@@ -8,7 +8,7 @@ const router = require('./routes/main');
 const notFound = require('./middleware/notFound');
 const errorHandler = require('./middleware/errorHandler');
 
-// middleware
+// middlewares
 app.use(express.static('./public'));
 app.use(express.json());
 

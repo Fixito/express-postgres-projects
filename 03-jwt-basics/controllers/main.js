@@ -23,13 +23,11 @@ const login = (req, res) => {
   const id = new Date().getTime();
 
   //* essayer de garder le payload court, mieux pour l'UX (on envoie moins de données)
-  //! en production, il faut utiliser un string long, complexe et indevinable !!!
+  //! en production, il faut utiliser un string long, complexe et indevinable !
   // args - payload, secret, options
   const token = jwt.sign({ id, username }, process.env.JWT_SECRET, {
-    expiresIn: '30d'
+    expiresIn: process.env.JWT_LIFETIME
   });
-
-  // res.send('Fake Login/Register/Signup Route');
 
   // récupérer le token via Postman essayer le décrypter sur le site de JWT
   res.status(200).json({ msg: 'utilisateur créé', token });
@@ -39,8 +37,8 @@ const dashboard = (req, res) => {
   const luckyNumber = Math.floor(Math.random() * 100);
 
   res.status(200).json({
-    msg: `Hello, ${req.user?.username}`,
-    secret: `Voici vos données autorisées, votre numéro porte-bonheur est le ${luckyNumber}`
+    msg: `Salut, ${req.user?.username} !`,
+    secret: `Voici vos données autorisées. Votre numéro porte-bonheur est le ${luckyNumber}`
   });
 };
 
