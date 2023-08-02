@@ -4,11 +4,11 @@ require('express-async-errors');
 const express = require('express');
 const app = express();
 
-const sendEmail = require('./controllers/sendEmail');
-
 // error handler
 const notFoundMiddleware = require('./middleware/not-found');
 const errorHandlerMiddleware = require('./middleware/error-handler');
+
+const sendEmail = require('./controllers/sendEmail');
 
 // routes
 app.get('/', (_req, res) => {
@@ -23,5 +23,5 @@ app.use(errorHandlerMiddleware);
 const port = process.env.PORT || 5000;
 
 app.listen(port, () => {
-  console.log(`Le serveur écoute sur le port ${port}...`);
+  console.log(`Server is listening on port ${port}...`);
 });

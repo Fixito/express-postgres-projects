@@ -1,14 +1,11 @@
 const { StatusCodes } = require('http-status-codes');
 
 const errorHandlerMiddleware = (err, _req, res, _next) => {
-  let customError = {
-    statusCode: err.statusCode || StatusCodes.INTERNAL_SERVER_ERROR,
-    msg:
-      err.message ||
-      "Une erreur s'est produite, veuillez réessayer plus tard..."
-  };
+  const statusCode = err.statusCode || StatusCodes.INTERNAL_SERVER_ERROR;
+  const msg =
+    err.message || "Une erreur s'est produite, veuillez réessayer plus tard...";
 
-  res.status(customError.statusCode).json({ msg: customError.msg });
+  res.status(statusCode).json({ msg: msg });
 };
 
 module.exports = errorHandlerMiddleware;

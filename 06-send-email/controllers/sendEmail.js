@@ -1,7 +1,4 @@
 const nodemailer = require('nodemailer');
-const sgMail = require('@sendgrid/mail');
-const { Resend } = require('resend');
-const resend = new Resend(process.env.RESEND_API_KEY);
 
 // TODO: npm i nodemailer
 const sendEmailEtheral = async (_req, res) => {
@@ -33,22 +30,4 @@ const sendEmailEtheral = async (_req, res) => {
   res.json(info);
 };
 
-// TODO: créer un compte sur sendGrid  (utiliser un mail valid
-// TODO: créer un single sender
-// TODO: Email API -> Integration Guide -> choose Web API -> Node.js
-// TODO: créer une variable d'envrionnement SENDGRID_API_KEY
-// TODO: npm i @sendgrid/mail
-const sendEmail = async (_req, res) => {
-  sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-  const msg = {
-    to: 'thomas_3004@hotmail.fr',
-    from: 'fixito59@gmail.com', // Changer pour notre sender vérifié
-    subject: 'Envoyer avec SendGrid est marrant',
-    text: "et facile à faire n'importe où, même avec Node.js",
-    html: "<strong>et facile à faire n'importe où, même avec Node.js</strong>"
-  };
-  const info = await sgMail.send(msg);
-  res.json(info);
-};
-
-module.exports = sendEmail;
+module.exports = sendEmailEtheral;
