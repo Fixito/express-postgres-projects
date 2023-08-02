@@ -1,7 +1,7 @@
-const jwt = require('jsonwebtoken');
 const { UnauthenticatedError } = require('../errors');
+const { verifyJWT } = require('../utils/tokenUtils.js');
 
-const auth = (req, res, next) => {
+const auth = (req, _res, next) => {
   // vérifie le header
   const authHeader = req.headers.authorization;
 
@@ -12,12 +12,12 @@ const auth = (req, res, next) => {
   const token = authHeader.split(' ')[1];
 
   try {
-    const payload = jwt.verify(token, process.env.JWT_SECRET);
+    const { userID, name } = verifyJWT(token);
 
     // attache l'utilisateur pour la route jobs
     req.user = {
-      userID: payload.userID,
-      name: payload.name,
+      userID,
+      name
     };
     next();
   } catch (error) {
