@@ -31,7 +31,7 @@ imageInputDOM.addEventListener('change', async (e) => {
     imageValue = src;
   } catch (error) {
     imageValue = null;
-    console.log(error);
+    console.log(error.response);
   }
 });
 
@@ -39,13 +39,14 @@ fileFormDOM.addEventListener('submit', async (e) => {
   e.preventDefault();
   const nameValue = nameInputDOM.value;
   const priceValue = priceInputDOM.value;
+
   try {
     const product = { name: nameValue, price: priceValue, image: imageValue };
 
     await axios.post(url, product);
     fetchProducts();
   } catch (error) {
-    console.log(error);
+    console.log(error.response);
   }
 });
 
@@ -60,15 +61,15 @@ async function fetchProducts() {
         return `<article class="product">
                   <img src="${product.image}" alt="${product.name}" class="img"/>
                   <footer>
-                  <p>${product.name}</p>
-                  <span>$${product.price}</span>
+                    <p>${product.name}</p>
+                    <span>$${product.price}</span>
                   </footer>
-                  </article>`;
+                </article>`;
       })
       .join('');
     containerDOM.innerHTML = productsDOM;
   } catch (error) {
-    console.log(error);
+    console.log(error.response);
   }
 }
 

@@ -11,7 +11,7 @@ const createProduct = async (req, res) => {
     [name, image, price]
   );
 
-  res.status(StatusCodes.OK).json({ product });
+  res.status(StatusCodes.CREATED).json({ product });
 };
 
 const getAllProducts = async (_req, res) => {

@@ -26,7 +26,7 @@ const uploadProductImageLocal = async (req, res) => {
   const maxSize = 1024 * 1024; // 1 mb
 
   if (productImage.size > maxSize) {
-    throw new BadRequestError('Please Upload Image smaller 1kB');
+    throw new BadRequestError('Please Upload Image smaller 1mb');
   }
 
   // On peut stocker l'image où l'on veut tant qu'on la rend accessible publiquement (express.static())
@@ -43,7 +43,8 @@ const uploadProductImageLocal = async (req, res) => {
 
 const uploadProductImage = async (req, res) => {
   // On stockera provisoirement nos images en local avant de les uploader pour récupérer plus facilement le chemin
-  // Il faut donc ajouter une option dans la methode fileuplaod (cf. app.js)
+  // Il faut donc ajouter une option ({ useTempFiles: true }) dans la methode fileupload (cf. app.js)
+
   if (!req.files) {
     throw new BadRequestError('Pas de fichier uploadé');
   }
